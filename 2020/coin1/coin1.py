@@ -27,43 +27,45 @@ sortedNums = sorted(nums)
 
 print(sortedNums)
 
+
+
 #quit()
 
 
-def processList(sortedNums, firstPos = 0, endPos = len(sortedNums)-1):
+def processList(sortedNums, numFromList, fromPos, endPos = len(sortedNums)-1):
     # get # entries in list 
     listLen = len(sortedNums)
     print("listPos = {}".format(endPos))
     listEntry = int(sortedNums[endPos])
     print("list entry = {}".format(listEntry))
 
-    firstValue = int(sortedNums[firstPos])
+    firstValue = int(sortedNums[fromPos])
     secondValue = int(sortedNums[endPos])
 
-    print(type(firstValue))
-
     calcVal = firstValue + secondValue
-    print(type(calcVal))
 
     # TODO tweak different arg, depending on value being too low or high.
     # only need one call to function in here
 
     # move to earlier part of list
-    if calcVal > 2020:
+    if calcVal == 2020:
+        print("got required value")
+        quit()
+    elif calcVal < 2020: # move to later part of list
+        print("value too low {} ".format(calcVal))
+        print("firstPos = {}".format(fromPos))
+        #processList(sortedNums, firstValue, newListPos) 
+    else:
         print("value too high {} ".format(calcVal))
         # divide listEntry by 2
 
         endPos = endPos//2
         print("endPos = {}".format(endPos))
-        #processList(sortedLines, firstPos, listPos // 2)
-    else: # move to later part of list
-        print("value too low {} ".format(calcVal))
-        firstPos = endPos//2
-        print("firstPos = {}".format(firstPos))
-        #processList(sortedLines, firstValue, newListPos) 
-        
-    #processList(sortedLines, firstPos, endPos)
+        processList(sortedNums, numFromList, fromPos, endPos)
 
 
-processList(sortedNums)
+for pos in incr:
+    processList(sortedNums, pos, pos+1)
+    quit()
+
 
