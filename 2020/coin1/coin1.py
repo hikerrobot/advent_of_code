@@ -54,7 +54,7 @@ def processList(sortedNums, numFromList, fromPos, endPos = len(sortedNums)-1):
     elif calcVal < 2020: # move to later part of list
         print("value too low {} ".format(calcVal))
         print("firstPos = {}".format(fromPos))
-        #processList(sortedNums, firstValue, newListPos) 
+        processList(sortedNums, firstValue, fromPos, endPos) 
     else:
         print("value too high {} ".format(calcVal))
         # divide listEntry by 2
