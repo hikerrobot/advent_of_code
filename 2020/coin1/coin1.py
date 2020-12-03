@@ -1,8 +1,6 @@
 # take a value, then try with every other value
 
-# sorting?
-# divide and conquer?
-# most efficient method
+
 
 
 filename = "input"
@@ -14,10 +12,8 @@ with open(filename) as f:
     
 nums = []
 print(len(lines))
-print(len(nums))
 
 incr = range(0, len(lines))
-print(incr)
 
 for pos in incr:
     #print(lines[pos])
@@ -26,10 +22,17 @@ for pos in incr:
 sortedNums = sorted(nums)
 
 print(sortedNums)
-
-
-
 #quit()
+
+
+for firstNum in sortedNums:
+    for secondNum in sortedNums:
+        if (firstNum + secondNum == 2020):
+            print("got answer")
+            print("nums = {} {}".format(firstNum, secondNum))
+            answer = firstNum * secondNum
+            print("result = {}".format(answer))
+            quit()
 
 
 def processList(sortedNums, numFromList, fromPos, endPos = len(sortedNums)-1):
@@ -64,8 +67,6 @@ def processList(sortedNums, numFromList, fromPos, endPos = len(sortedNums)-1):
         processList(sortedNums, numFromList, fromPos, endPos)
 
 
-for pos in incr:
-    processList(sortedNums, pos, pos+1)
-    quit()
+
 
 
