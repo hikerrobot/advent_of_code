@@ -1,8 +1,5 @@
 # take a value, then try with every other value
 
-
-
-
 filename = "input"
 
 with open(filename) as f:
@@ -24,16 +21,18 @@ sortedNums = sorted(nums)
 print(sortedNums)
 #quit()
 
+def findValues(sortedNums):
+    for firstNum in sortedNums:
+        for secondNum in sortedNums:
+            if (firstNum + secondNum == 2020):
+                print("got answer")
+                print("nums = {} {}".format(firstNum, secondNum))
+                answer = firstNum * secondNum
+                print("result = {}".format(answer))
+                return
 
-for firstNum in sortedNums:
-    for secondNum in sortedNums:
-        if (firstNum + secondNum == 2020):
-            print("got answer")
-            print("nums = {} {}".format(firstNum, secondNum))
-            answer = firstNum * secondNum
-            print("result = {}".format(answer))
-            quit()
 
+findValues(sortedNums)
 
 def processList(sortedNums, numFromList, fromPos, endPos = len(sortedNums)-1):
     # get # entries in list 
