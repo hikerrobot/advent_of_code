@@ -8,7 +8,7 @@ with open(filename) as f:
 # range(start,stop,step)
     
 nums = []
-print(len(lines))
+# print(len(lines))
 
 incr = range(0, len(lines))
 
@@ -18,8 +18,8 @@ for pos in incr:
 
 sortedNums = sorted(nums)
 
-print(sortedNums)
-#quit()
+# print(sortedNums)
+
 
 def findValues(sortedNums):
     for firstNum in sortedNums:
@@ -32,38 +32,48 @@ def findValues(sortedNums):
                 return
 
 
-findValues(sortedNums)
+# with sorted values, obtain the middle value
+# determine which half of list is needed based on sum
+# split list in half, repeat
 
-def processList(sortedNums, numFromList, fromPos, endPos = len(sortedNums)-1):
-    # get # entries in list 
-    listLen = len(sortedNums)
-    print("listPos = {}".format(endPos))
-    listEntry = int(sortedNums[endPos])
-    print("list entry = {}".format(listEntry))
+def processList(num, numberList):
+    print("-------------------------------------------------")
 
-    firstValue = int(sortedNums[fromPos])
-    secondValue = int(sortedNums[endPos])
+    splitPoint = len(numberList) // 2;
+    # print("splitPoint {}".format(splitPoint))
 
-    calcVal = firstValue + secondValue
+    secondNumber = numberList[splitPoint]
 
-    # TODO tweak different arg, depending on value being too low or high.
-    # only need one call to function in here
+    print("nums = {}:{}".format(num, secondNumber))
 
-    # move to earlier part of list
-    if calcVal == 2020:
-        print("got required value")
-        quit()
-    elif calcVal < 2020: # move to later part of list
-        print("value too low {} ".format(calcVal))
-        print("firstPos = {}".format(fromPos))
-        processList(sortedNums, firstValue, fromPos, endPos) 
+    # print("list length = {}".format(len(numberList)))
+    if len(numberList) == 1:
+        # print("return - only 1 number")
+        return
+
+    print("sum = {}".format(num+secondNumber))
+
+    if num + secondNumber > 2020:
+        newList = numberList[0:splitPoint]
+    elif num + secondNumber < 2020:
+        newList = numberList[splitPoint:len(numberList)]
     else:
-        print("value too high {} ".format(calcVal))
-        # divide listEntry by 2
+        print("*** huzzah! a match")
+        quit()
 
-        endPos = endPos//2
-        print("endPos = {}".format(endPos))
-        processList(sortedNums, numFromList, fromPos, endPos)
+    print(newList)
+    print("new array length {}".format(len(newList)))
+    processList(num, newList)
+
+numsProcessed = 1
+
+for num in sortedNums:
+    print ("processing number {} : {}".format(numsProcessed, num))
+    processList(num, sortedNums)
+    numsProcessed=+1
+
+
+
 
 
 
