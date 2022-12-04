@@ -1,10 +1,10 @@
 import sys
 
-sys.path.append('../../')
+sys.path.append('../')
 
 import read_file as rf
 
-fileContents = rf.get_file_contents('input')
+fileContents = rf.get_file_contents('input-d1')
 print("file lines = {}".format(len(fileContents)))
 
 elf = 1
