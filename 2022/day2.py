@@ -1,4 +1,13 @@
 import sys
+
+sys.path.append('../')
+
+import read_file as rf
+
+file_content = rf.get_file_contents('input-d2-work')
+# print("file lines = {}".format(len(fileContents)))
+
+
 # each line in the file is a round
 
 # 2 dicts, one for each player.
@@ -14,7 +23,7 @@ import sys
 # only need to track your score.
 # answer: calculate your total score
 
-foo_input = ['C X', 'A Y', 'A Z', 'B Y', 'C Y']
+#foo_input = ['C X', 'A Y', 'A Z', 'B Y', 'C Y']
 
 elf_opponent_rps = {
     'A':'rock','B':'paper','C':'scissors'
@@ -23,8 +32,6 @@ elf_opponent_rps = {
 my_rps = {
     'X':'rock','Y':'paper','Z':'scissors'
 }
-
-# rock beats scissors
 
 game_win_rules = {
     'rock': 'scissors',
@@ -36,10 +43,10 @@ rps_points = {
     'rock':1,'paper':2,'scissors':3
 }
 
-def determine_who_won(decoded_round):
-    opponent_choice = decoded_round[0]
-    my_choice = decoded_round[1]
+# TODO need to work out the correct piece to match the desired result
 
+# pt1
+def round_result_via_compare(score, opponent_choice, my_choice):
     # have we got a draw
     if opponent_choice == my_choice:
         return 3
@@ -49,26 +56,55 @@ def determine_who_won(decoded_round):
     else: # elf lost
         return 6
 
+# pt2
+def round_result_via_letter(score, my_choice):
+    # have we got a draw
+    if "Y" == my_choice:
+        return 3 + score
+    # did elf win?
+    elif "X" ==  my_choice:
+        return 0 + score
+    else: # Z elf lost
+        return 6 + score
+
+
+def determine_who_won(decoded_round):
+    opponent_choice = decoded_round[0]
+    my_choice = decoded_round[1]
+
+    # get score for my play piece
+    score = rps_points[my_choice]
+    print("score type {}, score {} for choice {}".format(type(score), score, my_choice))
+
+    return round_result_via_letter(score, my_choice)
+
+
 def decode_round(round):
     if (len(round) != 2):
         sys.exit("invalid round found")
 
     opponent_choice = elf_opponent_rps[round[0]]
-    print(opponent_choice)
+    # print(opponent_choice)
     my_choice = my_rps[round[1]]
-    print(my_choice)
+    # print(my_choice)
     return [opponent_choice, my_choice]
 
 def process_rounds(game_rounds):
+
+    total_score = 0
+
     for i in range(len(game_rounds)):
         round = game_rounds[i].split(' ')
 
         decoded_round = decode_round(round)
-        print("decoded_round {}".format(decoded_round))
+        # print("decoded_round {}".format(decoded_round))
         round_result = determine_who_won(decoded_round)
         print("round result {}".format(round_result))
+        total_score += round_result
+    
+    print("total score {}".format(total_score))
 
-process_rounds(foo_input)
+process_rounds(file_content)
 
 
 
