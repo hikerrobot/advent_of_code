@@ -4,7 +4,7 @@ sys.path.append('../')
 
 import read_file as rf
 
-file_content = rf.get_file_contents('input-d2-work')
+file_content = rf.get_file_contents('input-d2')
 # print("file lines = {}".format(len(fileContents)))
 
 
@@ -49,12 +49,12 @@ rps_points = {
 def round_result_via_compare(score, opponent_choice, my_choice):
     # have we got a draw
     if opponent_choice == my_choice:
-        return 3
+        return 3 + score
     # did elf win?
     elif game_win_rules[opponent_choice] == my_choice:
-        return 0
+        return 0 + score
     else: # elf lost
-        return 6
+        return 6 + score
 
 # pt2
 def round_result_via_letter(score, my_choice):
@@ -76,7 +76,7 @@ def determine_who_won(decoded_round):
     score = rps_points[my_choice]
     print("score type {}, score {} for choice {}".format(type(score), score, my_choice))
 
-    return round_result_via_letter(score, my_choice)
+    return round_result_via_compare(score, opponent_choice, my_choice)
 
 
 def decode_round(round):
