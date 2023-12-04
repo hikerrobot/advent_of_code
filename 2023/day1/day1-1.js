@@ -17,28 +17,32 @@ function extractInput(input, separator) {
     logMessage(input.length)
 
     let iteration = 0;
-    while (foundSepPos < input.length) {
-      // logMessage("searching from pos", startPos)
+    while (foundSepPos <= input.length) {
+      logMessage("searching from pos "+ startPos)
         foundSepPos = input.indexOf(separator, startPos)
-        // logMessage("foundSepPos", foundSepPos)
+        logMessage("foundSepPos " +foundSepPos)
         if (foundSepPos === -1) {
           logMessage("* not found -ret")
-            return;
+          if (startPos < input.length) {
+            console.log('final token = ' + input.substring(startPos, input.length))
+            extract.push(input.substring(startPos, input.length))
+          }
+          break;
         }
         // logMessage(input.substring)
         // logMessage("foundSepPos", foundSepPos, "startPos", startPos);
         const foundStr = input.substring(startPos, foundSepPos)
-        // logMessage("storing ", foundStr)
+        logMessage("storing " + foundStr)
         // move beyond last found separator - vital!
         startPos = foundSepPos + 1;
         extract.push(foundStr)
         iteration++
-        if (iteration === 3) {
-            break;
-        }
+        // if (iteration === 3) {
+        //     break;
+        // }
     }
     
-    logMessage(extract)
+    // logMessage(extract)
     return extract
     // console.log("separator found at ",foundSepPos);
 }
@@ -61,8 +65,8 @@ function getCalibrationValues(inputLine) {
   if (!numMatch) {
     throw "no numbers found in line :-/"
   }
-  console.log(numMatch)
-  getNumbers(numMatch)
+  // console.log(numMatch)
+  return Number(getNumbers(numMatch));
 }
 
 fs.readFile('./input-d1', 'utf8', (err, data) => {
@@ -76,11 +80,16 @@ fs.readFile('./input-d1', 'utf8', (err, data) => {
   // for each new line char, using index push into array
 //   console.log(data.indexOf("\n"))
   const extract = extractInput(data, "\n")
-  console.log(extract);
-  console.log('extract len', extract.length)
+  // console.log(extract);
+  console.log('extract len' + extract.length)
   
+  let total = 0;
+
   extract.forEach((line) => {
-    getCalibrationValues(line)
+
+    logMessage('line = ' + line)
+    total = total + getCalibrationValues(line)
   })
+  logMessage('total = ' + total)
 
 });
